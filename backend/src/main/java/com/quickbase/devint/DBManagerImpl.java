@@ -8,21 +8,32 @@ import java.sql.*;
  * Created by ckeswani on 9/16/15.
  */
 public class DBManagerImpl implements DBManager {
+
+    //Represents the connection to the database.
+    Connection connection = null;
+
     public Connection getConnection() {
-        Connection c = null;
-        Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:resources/data/citystatecountry.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:resources/data/citystatecountry.db");
             System.out.println("Opened database successfully");
-
         } catch (ClassNotFoundException cnf) {
             System.out.println("could not load driver");
-        } catch (SQLException sqle) {
-            System.out.println("sql exception:" + sqle.getStackTrace());
+        } catch (SQLException sqlexception) {
+            System.out.println("sql exception:" + sqlexception.getStackTrace());
         }
-        return c;
+        return connection;
     }
-    //TODO: Add a method (signature of your choosing) to query the db for population data by country
 
+    /**
+     * Allows the user to close connection. The user is responsible to close the connection.
+     */
+    @Override
+    public void closeConnection() {
+        try {
+            this.connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -44,6 +44,7 @@ public class ConcreteStatService implements IStatService {
 		output.add(new ImmutablePair<String, Integer>("Kyrgyzstan",5418300));
 		output.add(new ImmutablePair<String, Integer>("Lithuania",3329039));
 		output.add(new ImmutablePair<String, Integer>("United States of America",309349689));
+
 		return output;
 	}
 
